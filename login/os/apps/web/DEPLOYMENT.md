@@ -63,7 +63,7 @@ Since Vercel has trouble with local database files:
 Fly.io is ideal for this application because it allows us to mount a persistent "Volume" (disk) to store the SQLite database, so data is never lost.
 
 **Prerequisites:**
-1.  Install `flyctl`: [https://fly.io/docs/hands-on/install-flyctl/](https://fly.io/docs/hands-on/install-flyctl/)
+1.  Install `flyctl` (Windows PowerShell): `iwr https://fly.io/install.ps1 -useb | iex`
 2.  Sign up/Login: `fly auth login`
 
 **Deployment Steps:**
