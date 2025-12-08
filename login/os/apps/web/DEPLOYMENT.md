@@ -25,6 +25,7 @@ For a free demo that works (with the caveat that data might reset if the server 
     *   Go to [dashboard.render.com](https://dashboard.render.com/).
     *   Click **New +** -> **Web Service**.
     *   Connect your GitHub repository.
+    *   **Root Directory**: `login/os/apps/web` (Critical for build success)
     *   **Runtime**: Node
     *   **Build Command**: `npm install && npm run build`
     *   **Start Command**: `npm start`
