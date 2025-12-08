@@ -49,8 +49,26 @@ For a free demo that works (with the caveat that data might reset if the server 
     *   `MISTRAL_API_KEY`: `UdUPEQibkVUis0H2Ec6a9UeiSJYdqThH`
 5.  Click **Deploy**. 
 
-## Important Notes
+## 🏆 Best Hosting Alternatives (for SQLite)
 
+Since Vercel has trouble with local database files:
+
+### 1. Render.com (Recommended)
+*   **Why**: It runs a real server, not serverless functions.
+*   **Pros**: The app will actually *start*.
+*   **Cons**: On the free plan, data resets when the server "sleeps" (blocks of inactivity).
+
+### 2. Fly.io
+*   **Why**: Best support for SQLite apps.
+*   **Pros**: You can attach a "Volume" (disk) to keep your data forever.
+*   **Cons**: Requires installing their CLI tool (`flyctl`).
+
+### 3. Switch Database (For Vercel Support)
+To make this app work perfectly on Vercel, you must switch from `better-sqlite3` to a cloud database:
+*   **Turso**: Cloud SQLite (easiest migration).
+*   **Neon**: Serverless Postgres.
+
+## Important Notes
 *   **Database**: The `local.sqlite` file is used for data. In "free" hosting, this file is widely ephemeral. For a real production app, switching to **Neon (Postgres)** or **Turso (LibSQL)** is required.
 *   **Uploads**: File uploads go to `public/uploads`. In free hosting, these files disappear on each deployment. Use **UploadThing** or **AWS S3** for production.
 
