@@ -21,6 +21,9 @@ export default defineConfig({
       external: ['better-sqlite3'],
     },
   },
+  ssr: {
+    external: ['better-sqlite3'],
+  },
   optimizeDeps: {
     // Explicitly include fast-glob, since it gets dynamically imported and we
     // don't want that to cause a re-bundle.
@@ -35,6 +38,7 @@ export default defineConfig({
       'fsevents',
       'lightningcss',
       'better-sqlite3',
+      'jose',
     ],
   },
   logLevel: 'info',
