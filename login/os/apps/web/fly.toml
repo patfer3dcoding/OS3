@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "goodtalent-os-demo" # <--- IMPORTANT: CHANGE THIS TO YOUR UNIQUE APP NAME
+app = "os3" # <--- IMPORTANT: CHANGE THIS TO YOUR UNIQUE APP NAME
 primary_region = "iad" # <--- Change to your preferred region (e.g., lhr, sjc)
 
 [build]
