@@ -58,10 +58,55 @@ Since Vercel has trouble with local database files:
 *   **Pros**: The app will actually *start*.
 *   **Cons**: On the free plan, data resets when the server "sleeps" (blocks of inactivity).
 
-### 2. Fly.io
-*   **Why**: Best support for SQLite apps.
-*   **Pros**: You can attach a "Volume" (disk) to keep your data forever.
-*   **Cons**: Requires installing their CLI tool (`flyctl`).
+### Option 3: Deploy to Fly.io (Best for SQLite)
+
+Fly.io is ideal for this application because it allows us to mount a persistent "Volume" (disk) to store the SQLite database, so data is never lost.
+
+**Prerequisites:**
+1.  Install `flyctl`: [https://fly.io/docs/hands-on/install-flyctl/](https://fly.io/docs/hands-on/install-flyctl/)
+2.  Sign up/Login: `fly auth login`
+
+**Deployment Steps:**
+
+1.  **Navigate to the app folder**:
+    ```bash
+    cd login/os/apps/web
+    ```
+
+2.  **Initialize App**:
+    ```bash
+    fly launch --no-deploy
+    ```
+    *   **App Name**: (Choose a unique name)
+    *   **Region**: (Choose one close to you)
+    *   **Database**: None (we use SQLite)
+    *   **Redis**: No
+
+3.  **Create Persistent Volume** (Crucial Step):
+    This command creates a 1GB disk named `data` to store your database.
+    ```bash
+    fly volumes create data --size 1 --region <YOUR_REGION_CODE>
+    ```
+    *(Use the same region you chose in step 2, e.g., `iad`, `lhr`, `sjc`)*
+
+4.  **Edit `fly.toml`**:
+    Open the generated `fly.toml` file and add this section at the bottom to mount the volume. 
+    
+    ```toml
+    [mounts]
+    source = "data"
+    destination = "/app/data"
+    ```
+
+5.  **Set Environment Secret**:
+    ```bash
+    fly secrets set MISTRAL_API_KEY=UdUPEQibkVUis0H2Ec6a9UeiSJYdqThH
+    ```
+
+6.  **Deploy**:
+    ```bash
+    fly deploy
+    ```
 
 ### 3. Switch Database (For Vercel Support)
 To make this app work perfectly on Vercel, you must switch from `better-sqlite3` to a cloud database:
