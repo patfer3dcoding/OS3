@@ -4,7 +4,7 @@
 #
 
 app = "os3" # <--- IMPORTANT: CHANGE THIS TO YOUR UNIQUE APP NAME
-primary_region = "iad" # <--- Change to your preferred region (e.g., lhr, sjc)
+primary_region = "dfw" # <--- Change to your preferred region (e.g., lhr, sjc)
 
 [build]
   dockerfile = "Dockerfile"
