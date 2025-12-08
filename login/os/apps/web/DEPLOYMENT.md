@@ -35,11 +35,19 @@ For a free demo that works (with the caveat that data might reset if the server 
 
 ### Option 2: Deploy to Vercel (Serverless)
 
-Vercel is easier but **does not support persistent SQLite** out of the box. Your data will be lost frequently.
+**Warning**: Vercel is a serverless platform. 
+1. **Database Issues**: The local `sqlite` file will NOT work for saving data. It will reset on every request or deployment. 
+2. **Build Issues**: `better-sqlite3` might fail to compile on Vercel's environment. You may need to remove it or use a specific build configuration.
 
-1.  Install Vercel CLI: `npm i -g vercel`
-2.  Run: `vercel`
-3.  Follow the prompts. 
+**Steps:**
+1.  Go to [vercel.com/new](https://vercel.com/new).
+2.  Import your `OS3` repository.
+3.  **Project Settings**:
+    *   **Framework Preset**: Select **Vite** or **Remix** (if available).
+    *   **Root Directory**: Click "Edit" and select `login/os/apps/web`.
+4.  **Environment Variables**:
+    *   `MISTRAL_API_KEY`: `UdUPEQibkVUis0H2Ec6a9UeiSJYdqThH`
+5.  Click **Deploy**. 
 
 ## Important Notes
 
