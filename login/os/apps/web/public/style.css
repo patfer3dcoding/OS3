@@ -1,0 +1,504 @@
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #000000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+  /* Prevent scrollbars from canvas */
+}
+
+/* Canvas container explicitly behind UI */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Background */
+  display: block;
+}
+
+/* Login Container - Centered and Glassmorphism */
+#login-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.login-content {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  transform: translateY(-10vh);
+  /* Move up by 10% of viewport */
+}
+
+/* Typography */
+/* Typography */
+.brand {
+  font-size: 8rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  letter-spacing: -4px;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  user-select: none;
+  paint-order: stroke fill;
+}
+
+.brand span {
+  color: rgba(0, 0, 0, 0.3);
+  /* Dark semi-transparent fill */
+  -webkit-text-stroke-width: 4px;
+  position: relative;
+}
+
+@keyframes neonPulsePink {
+
+  0%,
+  100% {
+    text-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+  }
+
+  50% {
+    text-shadow: 0 0 25px rgba(255, 20, 147, 0.8), 0 0 5px rgba(255, 20, 147, 0.5);
+  }
+}
+
+@keyframes neonPulseBlue {
+
+  0%,
+  100% {
+    text-shadow: 0 0 15px rgba(65, 105, 225, 0.5);
+  }
+
+  50% {
+    text-shadow: 0 0 25px rgba(65, 105, 225, 0.8), 0 0 5px rgba(65, 105, 225, 0.5);
+  }
+}
+
+.brand-pink {
+  -webkit-text-stroke-color: #ff1493;
+  /* Deep Pink */
+  animation: neonPulsePink 3s infinite ease-in-out;
+}
+
+.brand-blue {
+  -webkit-text-stroke-color: #4169e1;
+  /* Royal Blue */
+  animation: neonPulseBlue 3s infinite ease-in-out;
+}
+
+.brand-dot {
+  -webkit-text-stroke-color: #4169e1;
+  color: #4169e1 !important;
+  /* Solid dot */
+  text-shadow: 0 0 15px rgba(65, 105, 225, 0.8);
+  -webkit-text-stroke-width: 0px !important;
+  animation: neonPulseBlue 3s infinite ease-in-out;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  margin: -1rem 0 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+/* Form Styles */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  color: white;
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  z-index: 1;
+}
+
+.input-group input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  /* Pill shape */
+  padding: 1rem 1rem 1rem 3rem;
+  /* Left padding for icon */
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s;
+  box-sizing: border-box;
+  /* Ensure padding doesn't affect width */
+  backdrop-filter: blur(5px);
+}
+
+.input-group input:focus {
+  border-color: rgba(80, 150, 255, 0.8);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(80, 150, 255, 0.3);
+}
+
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.login-btn {
+  border-radius: 50px;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 200, 255, 0.3);
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 200, 255, 0.5);
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+/* Terminal Overlay */
+/* Terminal Overlay */
+#terminal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* Align to bottom for better visibility of Earth */
+  padding-bottom: 4rem;
+  pointer-events: none;
+  background: transparent;
+  /* Show scene behind */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.terminal-window {
+  width: 800px;
+  height: 250px;
+  background: rgba(0, 10, 0, 0.85);
+  /* Slightly transparent dark green */
+  border: 1px solid #00ff00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+  padding: 1.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  color: #00ff00;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+}
+
+.terminal-line {
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  /* Hidden by default */
+  animation: fadeIn 0.1s forwards;
+}
+
+.terminal-cursor::after {
+  content: '_';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* OS Loader */
+#os-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+.loader-content {
+  text-align: center;
+  width: 300px;
+}
+
+.loader-logo {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  transition: width 0.1s linear;
+}
+
+.loader-text {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* OS Desktop */
+#os-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  /* Below terminal initially, but we'll fade terminal out */
+  opacity: 0;
+  pointer-events: none;
+  /* Enabled via JS */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.os-topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #ff1493, #4169e1);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.user-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.user-role {
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.logout-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  backdrop-filter: blur(5px);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Desktop Grid */
+.desktop-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-auto-rows: 120px;
+  padding: 2rem;
+  gap: 1rem;
+  align-content: start;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.icon-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  /* Placeholder for img/svg */
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, #333, #555);
+  /* Fail-safe bg */
+}
+
+/* Specific Icon Colors (Glassy) */
+.icon-Candidates .icon-img {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+}
+
+.icon-Job .icon-img {
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  box-shadow: 0 4px 15px rgba(161, 140, 209, 0.3);
+}
+
+.icon-Interviews .icon-img {
+  background: linear-gradient(135deg, #84fab0, #8fd3f4);
+  box-shadow: 0 4px 15px rgba(132, 250, 176, 0.3);
+}
+
+.icon-Analytics .icon-img {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.desktop-icon span {
+  padding: 1rem;
+  transform: translateY(-10vh);
+}
+
+.terminal-window {
+  width: 90%;
+  height: 60vh;
+  font-size: 1rem;
+}
+}
