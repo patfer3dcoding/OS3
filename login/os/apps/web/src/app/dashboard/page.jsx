@@ -167,18 +167,15 @@ function DashboardContent() {
 
   // Check authentication on mount
   // Check authentication on mount
+  // Check authentication on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      let token = localStorage.getItem("authToken");
-      let userData = localStorage.getItem("user");
+      const token = localStorage.getItem("authToken");
+      const userData = localStorage.getItem("user");
 
       if (!token || !userData) {
-        // Auto-login as Neo if not authenticated
-        const mockUser = { name: "Neo", email: "neo@matrix.com" };
-        token = "mock-token-" + Date.now();
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        userData = JSON.stringify(mockUser);
+        window.location.href = "/welcome.html";
+        return;
       }
 
       setUser(JSON.parse(userData));
@@ -195,7 +192,7 @@ function DashboardContent() {
     if (typeof window !== "undefined") {
       localStorage.removeItem("authToken");
       localStorage.removeItem("user");
-      window.location.href = "http://localhost:5173";
+      window.location.href = "/";
     }
   };
 

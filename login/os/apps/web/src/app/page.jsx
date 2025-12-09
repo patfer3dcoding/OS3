@@ -5,17 +5,15 @@ import { useEffect } from "react";
 export default function HomePage() {
   useEffect(() => {
     if (typeof window !== "undefined") {
-      let token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("authToken");
 
       if (!token) {
-        // Auto-login logic
-        const mockUser = { name: "Neo", email: "neo@matrix.com" };
-        token = "mock-token-" + Date.now();
-        localStorage.setItem("authToken", token);
-        localStorage.setItem("user", JSON.stringify(mockUser));
+        // Redirect to Earth Login if not authenticated
+        window.location.href = "/welcome.html";
+      } else {
+        // Go to dashboard if already logged in
+        window.location.href = "/dashboard";
       }
-
-      window.location.href = "/dashboard";
     }
   }, []);
 
