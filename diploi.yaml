@@ -1,7 +1,7 @@
 version: '1'
 components:
   - name: web
-    source: ./os/apps/web
+    source: ./login/os/apps/web
     type: docker
     dockerfile: Dockerfile
     env:
