@@ -43,7 +43,8 @@ export default defineConfig({
   plugins: [
     nextPublicProcessEnv(),
     restartEnvFileChange(),
-    reactRouterHonoServer({
+    // Only enable Hono server plugin when not deploying to Netlify Functions
+    process.env.NETLIFY === 'true' ? null : reactRouterHonoServer({
       serverEntryPoint: './__create/index.ts',
       runtime: 'node',
     }),

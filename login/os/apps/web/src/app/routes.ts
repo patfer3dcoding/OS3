@@ -1,16 +1,3 @@
-// Checking duplicates
-// The error was "same route path .../logout/page.jsx"
-// It seems `import.meta.glob` might be registering things, OR `react-router` automatically scans `appDirectory`.
-// If `routes.ts` exists, it usually overrides auto-routing if configured?
-// Actually if `react-router.config.ts` has `appDirectory`, it scans it.
-// If we provide `routes.ts`, we are manually defining.
-// The issue might be that `buildRouteTree` is scanning `src/app` AND we are adding `src/app` again?
-// `__dirname` is `src/app`.
-// `tree` scans `src/app`.
-// This seems correct for manual definition.
-
-// Hypoyhesis: `logout/page.jsx` is found by `buildRouteTree` AND maybe `logout/route.js`?
-// Let's ensure we prefer one.
 import { readdirSync, statSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -34,7 +21,21 @@ type Tree = {
 };
 
 function buildRouteTree(dir: string, basePath = ''): Tree {
-	const files = readdirSync(dir);
+	let files: string[] = [];
+	try {
+		files = readdirSync(dir);
+	} catch {
+		return {
+			path: basePath,
+			children: [],
+			hasPage: false,
+			isParam: false,
+			isCatchAll: false,
+			paramName: '',
+			fullPath: dir,
+		};
+	}
+
 	const node: Tree = {
 		path: basePath,
 		children: [],
@@ -125,18 +126,10 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 		routes.push(...generateRoutes(child));
 	}
 
-	// Filter duplicates: keep last one
-	const uniqueRoutes = new Map();
-	routes.forEach(r => {
-		// Assume 'path' or 'index' is the key
-		const key = r.path || (r.index ? 'index' : '');
-		uniqueRoutes.set(key, r);
-	});
-	return Array.from(uniqueRoutes.values());
+	return routes;
 }
-// Ensure these globs are included for the build to pick up dependencies if needed, 
-// though manual import generation below should handle route registration.
-// Vite's build process might need these to know about the existence of the files if they are dynamic imports.
+
+// Ensure these globs are included for the build to pick up dependencies if needed
 import.meta.glob('./**/{page.jsx,route.js,route.ts}', { eager: true });
 import.meta.glob('../api/**/{page.jsx,route.js,route.ts}', { eager: true });
 
@@ -147,14 +140,26 @@ if (import.meta.env.DEV) {
 		});
 	}
 }
+
+// Manually build both trees. Since routes.ts is present, auto-routing is disabled.
 const tree = buildRouteTree(__dirname);
 const apiTree = buildRouteTree(resolve(__dirname, '../api'), 'api');
 
 const notFound = route('*?', './__create/not-found.tsx');
-const routes = [
+
+// Use a simplified merge strategy: concat, but warn/filter duplicates
+const allRoutes = [
 	...generateRoutes(tree),
 	...generateRoutes(apiTree),
 	notFound
 ];
 
-export default routes;
+// Deduplicate by path
+const uniqueRoutes = new Map();
+allRoutes.forEach(r => {
+	// Basic key: r.path (undef for index)
+	const key = r.path || (r.index ? 'INDEX' : 'UNKNOWN');
+	uniqueRoutes.set(key, r);
+});
+
+export default Array.from(uniqueRoutes.values());

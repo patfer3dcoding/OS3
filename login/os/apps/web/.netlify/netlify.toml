@@ -1,0 +1,45 @@
+functionsDirectory = "D:\\Users\\pblanks\\Downloads\\login\\login\\os\\apps\\web\\netlify\\functions"
+functionsDirectoryOrigin = "config-v1"
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[build]
+publish = "D:\\Users\\pblanks\\Downloads\\login\\login\\os\\apps\\web\\build\\client"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "D:\\Users\\pblanks\\Downloads\\login\\login\\os\\apps\\web"
+command = "$env:NETLIFY=\"true\"; npm run build"
+functions = "D:\\Users\\pblanks\\Downloads\\login\\login\\os\\apps\\web\\netlify\\functions"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[functions]
+
+[functions."*"]
+included_files = ["database.json"]
+node_bundler = "esbuild"
+
+[[redirects]]
+from = "/*"
+to = "/.netlify/functions/server"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
