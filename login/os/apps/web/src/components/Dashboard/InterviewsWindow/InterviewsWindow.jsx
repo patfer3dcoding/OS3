@@ -16,7 +16,7 @@ import {
   Brain,
 } from "lucide-react";
 import { InterviewRoom } from "../InterviewRoom/InterviewRoom";
-import { exportToCSV } from "@/utils/exportUtils";
+import { exportToCSV } from "../../../utils/exportUtils";
 
 export function InterviewsWindow() {
   const queryClient = useQueryClient();

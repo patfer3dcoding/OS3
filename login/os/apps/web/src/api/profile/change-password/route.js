@@ -1,5 +1,5 @@
-import { verifyAuthToken, getUserById } from "@/api/utils/auth.server";
-import db from "@/api/utils/db.server";
+import { verifyAuthToken, getUserById } from "../../utils/auth.server";
+import db from "../../utils/db.server";
 
 export async function POST(request) {
   if (request.method !== "POST") {

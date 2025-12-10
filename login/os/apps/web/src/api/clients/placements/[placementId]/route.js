@@ -1,4 +1,4 @@
-import sql from "@/api/utils/sql";
+import sql from "../../../utils/sql";
 
 export async function PUT(request, { params }) {
   try {

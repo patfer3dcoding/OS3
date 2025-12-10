@@ -1,6 +1,6 @@
-import db from "@/api/utils/db.server";
+import db from "../../utils/db.server";
 
-import { demoInterviews } from "@/utils/demoData";
+import { demoInterviews } from "../../../utils/demoData";
 
 export async function loader({ request }) {
   try {

@@ -1,6 +1,6 @@
 import { Upload, FileText, Loader2 } from "lucide-react";
 import { useState } from "react";
-import useUpload from "@/utils/useUpload";
+import useUpload from "../../../utils/useUpload";
 
 export function CandidateForm({
   formData,

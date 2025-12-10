@@ -1,5 +1,5 @@
-import { verifyAuthToken } from "@/api/utils/auth.server";
-import db from "@/api/utils/db.server";
+import { verifyAuthToken } from "../../utils/auth.server";
+import db from "../../utils/db.server";
 
 export async function PUT(request) {
   if (request.method !== "PUT") {

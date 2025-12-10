@@ -1,4 +1,4 @@
-import db from "@/api/utils/db.server";
+import db from "../../../utils/db.server";
 
 export async function action({ request, params }) {
   if (request.method !== 'DELETE') {

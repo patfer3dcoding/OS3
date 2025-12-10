@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import useUser from "@/utils/useUser";
-import { useUpload } from "@/utils/useUpload";
-import { useProfileData } from "@/hooks/useProfileData";
-import { useSettings } from "@/hooks/useSettings";
-import { usePhotoUpload } from "@/hooks/usePhotoUpload";
+import useUser from "../../../utils/useUser";
+import { useUpload } from "../../../utils/useUpload";
+import { useProfileData } from "../../../hooks/useProfileData";
+import { useSettings } from "../../../hooks/useSettings";
+import { usePhotoUpload } from "../../../hooks/usePhotoUpload";
 import { SettingsSidebar } from "./SettingsSidebar";
 import { ProfileSection } from "./ProfileSection/ProfileSection";
 import { NotificationsSection } from "./NotificationsSection";

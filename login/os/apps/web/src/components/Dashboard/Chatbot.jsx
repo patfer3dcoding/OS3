@@ -8,7 +8,7 @@ import {
   Maximize2,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import useUpload from "@/utils/useUpload";
+import useUpload from "../../utils/useUpload";
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -129,8 +129,8 @@ export function Chatbot() {
   return (
     <div
       className={`fixed z-50 bg-gradient-to-br from-slate-900/95 to-slate-950/95 backdrop-blur-xl border border-white/20 shadow-2xl flex flex-col transition-all duration-300 ${isFullscreen
-          ? "inset-0 rounded-none"
-          : "bottom-0 right-0 sm:bottom-4 sm:right-4 w-full h-full sm:w-[600px] sm:h-[min(750px,calc(100vh-2rem))] rounded-none sm:rounded-2xl"
+        ? "inset-0 rounded-none"
+        : "bottom-0 right-0 sm:bottom-4 sm:right-4 w-full h-full sm:w-[600px] sm:h-[min(750px,calc(100vh-2rem))] rounded-none sm:rounded-2xl"
         }`}
     >
       {/* Header */}
@@ -177,8 +177,8 @@ export function Chatbot() {
           >
             <div
               className={`max-w-[85%] rounded-2xl px-4 md:px-5 py-3 ${msg.role === "user"
-                  ? "bg-gradient-to-br from-blue-500 to-purple-600 text-white"
-                  : "bg-white/10 border border-white/20 text-white"
+                ? "bg-gradient-to-br from-blue-500 to-purple-600 text-white"
+                : "bg-white/10 border border-white/20 text-white"
                 }`}
             >
               {msg.image && (

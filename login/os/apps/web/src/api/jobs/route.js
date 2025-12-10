@@ -1,7 +1,7 @@
-import db from "@/api/utils/db.server";
+import db from "../../utils/db.server";
 import { randomUUID } from 'crypto';
 
-import { demoJobs } from "@/utils/demoData";
+import { demoJobs } from "../../../utils/demoData";
 
 export async function loader({ request }) {
   try {

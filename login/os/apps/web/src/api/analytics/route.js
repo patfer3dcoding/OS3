@@ -1,4 +1,4 @@
-import db from "@/api/utils/db.server";
+import db from "../../utils/db.server";
 
 export async function loader() {
   try {

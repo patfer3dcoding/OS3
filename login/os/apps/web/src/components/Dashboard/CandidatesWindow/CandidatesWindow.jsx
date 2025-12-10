@@ -4,7 +4,7 @@ import { CandidatesList } from "./CandidatesList";
 import { CandidateDetails } from "./CandidateDetails";
 import { CandidateForm } from "./CandidateForm";
 import { BulkImport } from "./BulkImport";
-import { exportToCSV } from "@/utils/exportUtils";
+import { exportToCSV } from "../../../utils/exportUtils";
 
 export function CandidatesWindow() {
   const queryClient = useQueryClient();

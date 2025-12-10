@@ -28,7 +28,7 @@ import { ClientPlacements } from "./ClientPlacements";
 import { ClientPayments } from "./ClientPayments";
 import { ClientInteractions } from "./ClientInteractions";
 import { ClientContacts } from "./ClientContacts";
-import { exportToCSV } from "@/utils/exportUtils";
+import { exportToCSV } from "../../../utils/exportUtils";
 
 export function ClientsWindow() {
   const queryClient = useQueryClient();
@@ -272,8 +272,8 @@ export function ClientsWindow() {
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex items-center gap-2 px-6 py-3 rounded-t-lg transition-all duration-300 ${activeTab === tab.id
-                          ? "bg-white text-teal-600 font-semibold"
-                          : "text-white hover:bg-white/10"
+                        ? "bg-white text-teal-600 font-semibold"
+                        : "text-white hover:bg-white/10"
                         }`}
                     >
                       <Icon size={18} />

@@ -1,5 +1,5 @@
 import { Mistral } from "@mistralai/mistralai";
-import db from "@/api/utils/db.server";
+import db from "../../utils/db.server";
 
 export async function action({ request }) {
   if (request.method !== 'POST') {

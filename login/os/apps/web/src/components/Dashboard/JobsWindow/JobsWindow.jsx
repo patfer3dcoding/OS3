@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { JobsList } from "./JobsList";
 import { JobDetails } from "./JobDetails";
 import { JobForm } from "./JobForm";
-import { exportToCSV } from "@/utils/exportUtils";
+import { exportToCSV } from "../../../utils/exportUtils";
 
 export function JobsWindow() {
   const queryClient = useQueryClient();
