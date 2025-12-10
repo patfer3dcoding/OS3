@@ -1,3 +1,16 @@
+// Checking duplicates
+// The error was "same route path .../logout/page.jsx"
+// It seems `import.meta.glob` might be registering things, OR `react-router` automatically scans `appDirectory`.
+// If `routes.ts` exists, it usually overrides auto-routing if configured?
+// Actually if `react-router.config.ts` has `appDirectory`, it scans it.
+// If we provide `routes.ts`, we are manually defining.
+// The issue might be that `buildRouteTree` is scanning `src/app` AND we are adding `src/app` again?
+// `__dirname` is `src/app`.
+// `tree` scans `src/app`.
+// This seems correct for manual definition.
+
+// Hypoyhesis: `logout/page.jsx` is found by `buildRouteTree` AND maybe `logout/route.js`?
+// Let's ensure we prefer one.
 import { readdirSync, statSync } from 'node:fs';
 import { join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
