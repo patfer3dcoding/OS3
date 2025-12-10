@@ -99,50 +99,6 @@
     </div>
   </div>
 
-  <!-- OS Desktop -->
-  <div id="os-desktop">
-    <!-- Top info bar -->
-    <div class="os-topbar">
-      <div class="user-profile">
-        <div class="user-avatar">NU</div>
-        <div class="user-info">
-          <span class="user-name">Neo User</span>
-          <span class="user-role">Admin</span>
-        </div>
-      </div>
-      <button class="logout-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-          <polyline points="16 17 21 12 16 7"></polyline>
-          <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-        Logout
-      </button>
-    </div>
-
-    <!-- Desktop Icons Grid -->
-    <div class="desktop-grid" id="desktop-icons">
-      <!-- Icons will be injected via JS -->
-    </div>
-
-    <!-- Taskbar -->
-    <div class="taskbar">
-      <button class="start-btn">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <path d="M4 4h7v7H4V4zM13 4h7v7h-7V4zM4 13h7v7H4v-7zM13 13h7v7h-7v-7z" fill="#00A4EF" />
-        </svg>
-      </button>
-
-      <div class="taskbar-apps" id="taskbar-apps">
-        <!-- Active windows go here -->
-      </div>
-
-      <div class="taskbar-tray">
-        <div class="clock" id="os-clock">12:00 PM</div>
-      </div>
-    </div>
-  </div>
-
   <script type="module" src="/main.js"></script>
 
   <!-- Background Music -->
@@ -156,37 +112,41 @@
     const audioCtx = new AudioContext();
 
     function playTypingSound() {
-      // Create a short blip for typing
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      try {
+        // Create a short blip for typing
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
 
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(800 + Math.random() * 200, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800 + Math.random() * 200, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
 
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.05);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.05);
+      } catch (e) { console.error(e); }
     }
 
     function playAccessGrantedSound() {
-      // Positive chord
-      [440, 554, 659].forEach((freq, i) => {
-        setTimeout(() => {
-          const osc = audioCtx.createOscillator();
-          const gain = audioCtx.createGain();
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.type = 'sawtooth';
-          osc.frequency.value = freq;
-          gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 1.0);
-        }, i * 50);
-      });
+      try {
+        // Positive chord
+        [440, 554, 659].forEach((freq, i) => {
+          setTimeout(() => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'sawtooth';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 1.0);
+          }, i * 50);
+        });
+      } catch (e) { console.error(e); }
     }
 
 
@@ -219,27 +179,35 @@
       videoOverlay.offsetHeight;
       videoOverlay.style.opacity = '1';
 
-      video.play();
+      try {
+        await video.play();
+      } catch (err) {
+        console.warn("Video autoplay failed or blocked", err);
+        // Fallback immediately if video fails
+        onVideoEnd();
+        return;
+      }
 
       // Matrix mode (visual background change)
       if (window.setMatrixMode) window.setMatrixMode(true);
 
-      // 4. Wait for video end or timeout
-      // Use a fixed duration or 'ended' event. 
-      // The video length is unknown but usually short. Let's listen for 'ended' but also fail-safe.
-
-      const onVideoEnd = async () => {
-        videoOverlay.style.opacity = '0';
-        await new Promise(r => setTimeout(r, 500));
-        videoOverlay.style.display = 'none';
-
-        startOSLoadSequence();
-      };
-
       video.onended = onVideoEnd;
       // Fallback if video fails to play or is too long/short/stuck
-      // setTimeout(onVideoEnd, 10000); 
+      setTimeout(onVideoEnd, 15000);
     });
+
+    let sequenceStarted = false;
+    const onVideoEnd = async () => {
+      if (sequenceStarted) return;
+      sequenceStarted = true;
+
+      const videoOverlay = document.getElementById('video-overlay');
+      videoOverlay.style.opacity = '0';
+      await new Promise(r => setTimeout(r, 500));
+      videoOverlay.style.display = 'none';
+
+      startOSLoadSequence();
+    };
 
     async function startOSLoadSequence() {
       const loader = document.getElementById('os-loader');
@@ -257,144 +225,22 @@
       for (let i = 0; i <= 100; i += 2) {
         progressBar.style.width = i + '%';
         if (i % 20 === 0 && i < 100) {
-          loaderText.innerText = steps[i / 20];
+          loaderText.innerText = steps[Math.floor(i / 20)];
           playTypingSound(); // Reuse sound
         }
         await new Promise(r => setTimeout(r, 30));
       }
 
+      // 5.5 Set Mock Auth Token for Demo
+      localStorage.setItem('authToken', 'demo-token');
+      localStorage.setItem('user', JSON.stringify({ name: 'Neo User', email: 'neo@example.com', role: 'Admin' }));
+
       // 6. Redirect to OS App
       await new Promise(r => setTimeout(r, 500));
-      window.location.href = '/';
+
+      console.log('Redirecting to dashboard now...');
+      window.location.href = '/dashboard';
     }
-
-    // Desktop Application Data
-    const apps = [
-      { name: 'Candidates', icon: '👥', color: 'icon-Candidates' },
-      { name: 'Job Postings', icon: '💼', color: 'icon-Job' },
-      { name: 'Interviews', icon: '📅', color: 'icon-Interviews' },
-      { name: 'Analytics', icon: '📊', color: 'icon-Analytics' },
-      { name: 'Messages', icon: '💬', color: 'icon-Candidates' }, // Reuse class
-      { name: 'Settings', icon: '⚙️', color: 'icon-Analytics' }
-    ];
-
-    function initDesktop() {
-      const grid = document.getElementById('desktop-icons');
-      grid.innerHTML = ''; // Clear
-
-      apps.forEach(app => {
-        const icon = document.createElement('div');
-        icon.className = 'desktop-icon ' + app.color;
-        icon.innerHTML = `
-          <div class="icon-img">${app.icon}</div>
-          <span>${app.name}</span>
-        `;
-        icon.onclick = () => openWindow(app.name);
-        grid.appendChild(icon);
-      });
-
-      // Update clock
-      setInterval(() => {
-        const now = new Date();
-        document.getElementById('os-clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      }, 1000);
-    }
-
-    // Window Management System
-    let zIndexCounter = 100;
-
-    function openWindow(appName) {
-      const desktop = document.getElementById('os-desktop');
-
-      // Create Window DOM
-      const win = document.createElement('div');
-      win.className = 'os-window';
-      win.style.left = (100 + Math.random() * 50) + 'px';
-      win.style.top = (50 + Math.random() * 50) + 'px';
-      win.style.zIndex = ++zIndexCounter;
-
-      win.innerHTML = `
-        <div class="window-header">
-          <span class="window-title">${appName}</span>
-          <div class="window-controls">
-            <button class="win-btn win-min" onclick="minimizeWindow(this)"></button>
-            <button class="win-btn win-max"></button>
-            <button class="win-btn win-close" onclick="closeWindow(this)"></button>
-          </div>
-        </div>
-        <div class="window-content">
-          <h2>${appName}</h2>
-          <p>Loading data for ${appName}...</p>
-          <div style="margin-top:20px; font-size: 3rem; opacity:0.2;">${apps.find(a => a.name === appName)?.icon || '📁'}</div>
-        </div>
-      `;
-
-      // Make Draggable
-      const header = win.querySelector('.window-header');
-      let isDragging = false;
-      let offsetX, offsetY;
-
-      header.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        offsetX = e.clientX - win.offsetLeft;
-        offsetY = e.clientY - win.offsetTop;
-        win.style.zIndex = ++zIndexCounter; // Bring to front
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-          win.style.left = (e.clientX - offsetX) + 'px';
-          win.style.top = (e.clientY - offsetY) + 'px';
-        }
-      });
-
-      window.addEventListener('mouseup', () => {
-        isDragging = false;
-      });
-
-      win.addEventListener('mousedown', () => {
-        win.style.zIndex = ++zIndexCounter;
-      });
-
-      desktop.appendChild(win);
-
-      // Add animation
-      win.animate([
-        { transform: 'scale(0.8)', opacity: 0 },
-        { transform: 'scale(1)', opacity: 1 }
-      ], { duration: 200, easing: 'ease-out' });
-
-      // Add to Taskbar
-      const taskbarApps = document.getElementById('taskbar-apps');
-      const taskItem = document.createElement('div');
-      taskItem.style.cssText = "padding: 5px 10px; background: rgba(255,255,255,0.1); border-radius: 4px; color: white; font-size: 0.8rem; cursor: pointer;";
-      taskItem.innerText = appName;
-      taskItem.onclick = () => {
-        win.style.display = 'flex';
-        win.style.zIndex = ++zIndexCounter;
-      };
-
-      // Store ref to remove later? simple hack for now
-      win.taskItem = taskItem;
-      taskbarApps.appendChild(taskItem);
-    }
-
-    window.closeWindow = (btn) => {
-      const win = btn.closest('.os-window');
-      win.animate([
-        { transform: 'scale(1)', opacity: 1 },
-        { transform: 'scale(0.8)', opacity: 0 }
-      ], { duration: 150 }).onfinish = () => {
-        if (win.taskItem) win.taskItem.remove();
-        win.remove();
-      };
-    };
-
-    window.minimizeWindow = (btn) => {
-      const win = btn.closest('.os-window');
-      win.style.display = 'none';
-      // Taskbar item remains
-    };
 
     // Sound Experience Initialization
     document.addEventListener('DOMContentLoaded', () => {

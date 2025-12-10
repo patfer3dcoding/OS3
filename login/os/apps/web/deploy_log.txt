@@ -1,0 +1,321 @@
+==> Verifying app config
+Validating D:\Users\pblanks\Downloads\login\login\os\apps\web\fly.toml
+[32m✓[0m Configuration is valid
+--> Verified app config
+==> Building image
+Waiting for depot builder...
+
+==> Building image with Depot
+--> build:  (​)
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 297B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-slim
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 110B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/8] FROM docker.io/library/node:20-slim@sha256:b12539c5bb7bca01d3eeac5b0ae1946962ffbafd93ba198b4f58034bc12304ce
+#4 resolve docker.io/library/node:20-slim@sha256:b12539c5bb7bca01d3eeac5b0ae1946962ffbafd93ba198b4f58034bc12304ce done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 22.22kB 0.0s done
+#5 DONE 0.0s
+
+#6 [5/8] COPY .npmrc ./
+#6 CACHED
+
+#7 [3/8] RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [4/8] COPY package*.json ./
+#8 CACHED
+
+#9 [2/8] WORKDIR /app
+#9 CACHED
+
+#10 [6/8] RUN npm install
+#10 CACHED
+
+#11 [7/8] COPY . .
+#11 DONE 0.1s
+
+#12 [8/8] RUN npm run build
+#12 0.223 
+#12 0.223 > build
+#12 0.223 > react-router build
+#12 0.223 
+#12 1.996 vite v6.4.1 building for production...
+#12 2.132 transforming...
+#12 3.056 [plugin vite:resolve] Module "crypto" has been externalized for browser compatibility, imported by "/app/src/app/api/auth/route.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.057 [plugin vite:resolve] Module "crypto" has been externalized for browser compatibility, imported by "/app/src/app/api/auth/route.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.058 ✓ 73 modules transformed.
+#12 3.150 [plugin vite:resolve] Module "node:assert" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.150 [plugin vite:resolve] Module "node:crypto" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.150 [plugin vite:resolve] Module "node:util" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.151 [plugin vite:resolve] Module "node:assert" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.151 [plugin vite:resolve] Module "node:crypto" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.151 [plugin vite:resolve] Module "node:util" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.527 ✗ Build failed in 1.49s
+#12 3.528 [commonjs--resolver] Server-only module referenced by client
+#12 3.528 
+#12 3.528     '/app/src/app/api/utils/db.server' imported by route 'src/app/api/auth/route.js'
+#12 3.528 
+#12 3.528   React Router automatically removes server-code from these exports:
+#12 3.528     `loader`, `action`, `middleware`, `headers`
+#12 3.528 
+#12 3.528   But other route exports in 'src/app/api/auth/route.js' depend on '/app/src/app/api/utils/db.server'.
+#12 3.528 
+#12 3.528   See https://reactrouter.com/explanation/code-splitting#removal-of-server-code
+#12 3.528 
+#12 3.528     at Object.resolveId (/app/node_modules/@react-router/dev/dist/vite.js:3832:17)
+#12 3.528     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.528     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.528     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.528     at Object.resolveId (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:2835:10)
+#12 3.528     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.528     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.528     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.528     at Object.viteAliasCustomResolver (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42034:20)
+#12 3.528     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.528     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.528     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.528     at Object.resolveId (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:2835:10)
+#12 3.528     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.528     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.528     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.528     at file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21550:50 {
+#12 3.528   code: 'PLUGIN_ERROR',
+#12 3.528   plugin: 'commonjs--resolver',
+#12 3.528   hook: 'resolveId',
+#12 3.528   watchFiles: [
+#12 3.528     '/app/node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx',
+#12 3.528     '/app/src/app/page.jsx',
+#12 3.528     '/app/src/app/root.tsx',
+#12 3.528     '/app/src/app/account/logout/page.jsx',
+#12 3.528     '/app/src/app/account/signup/page.jsx',
+#12 3.528     '/app/src/app/account/signin/page.jsx',
+#12 3.528     '/app/src/app/api/analytics/route.js',
+#12 3.528     '/app/src/app/api/applications/route.js',
+#12 3.528     '/app/src/app/api/auth/route.js',
+#12 3.528     '/app/src/app/api/auth/expo-web-success/route.js',
+#12 3.528     '/app/src/app/api/auth/token/route.js',
+#12 3.528     '/app/src/app/api/browser/search/route.js',
+#12 3.528     '/app/src/app/api/candidates/route.js',
+#12 3.528     '/app/src/app/api/candidates/[id]/route.js',
+#12 3.528     '/app/src/app/api/candidates/bulk-import/route.js',
+#12 3.528     '/app/src/app/api/candidates/parse-cv/route.js',
+#12 3.528     '/app/src/app/api/clients/route.js',
+#12 3.528     '/app/src/app/api/chatbot/route.js',
+#12 3.528     '/app/src/app/api/clients/[id]/route.js',
+#12 3.528     '/app/src/app/api/clients/[id]/contacts/route.js',
+#12 3.528     '/app/src/app/api/clients/[id]/interactions/route.js',
+#12 3.528     '/app/src/app/api/clients/[id]/payments/route.js',
+#12 3.528     '/app/src/app/api/clients/[id]/placements/route.js',
+#12 3.528     '/app/src/app/api/clients/placements/[placementId]/route.js',
+#12 3.528     '/app/src/app/api/email-templates/route.js',
+#12 3.528     '/app/src/app/api/email-templates/[id]/route.js',
+#12 3.528     '/app/src/app/api/interviews/route.js',
+#12 3.528     '/app/src/app/api/interviews/[id]/route.js',
+#12 3.528     '/app/src/app/api/interviews/analyze-candidate/route.js',
+#12 3.528     '/app/src/app/api/interviews/ai-suggestions/route.js',
+#12 3.528     '/app/src/app/api/jobs/[id]/route.js',
+#12 3.528     '/app/src/app/api/jobs/route.js',
+#12 3.528     '/app/src/app/api/login/route.js',
+#12 3.528     '/app/src/app/api/profile/change-password/route.js',
+#12 3.528     '/app/src/app/api/profile/update/route.js',
+#12 3.528     '/app/src/app/api/revenue/route.js',
+#12 3.528     '/app/src/app/api/upload/route.js',
+#12 3.528     '/app/src/app/dashboard/page.jsx',
+#12 3.528     '/app/src/app/jobs/page.jsx',
+#12 3.528     '/app/src/app/login/page.jsx',
+#12 3.528     '/app/src/app/jobs/[id]/page.jsx',
+#12 3.528     '/app/src/app/__create/not-found.tsx',
+#12 3.528     '/app/package.json',
+#12 3.528     '/app/node_modules/react/jsx-runtime.js',
+#12 3.528     '/app/node_modules/react/index.js',
+#12 3.528     '/app/node_modules/react-router/dist/development/dom-export.mjs',
+#12 3.528     '/app/node_modules/react-dom/client.js',
+#12 3.528     '/app/src/app/layout.jsx',
+#12 3.528     '/app/node_modules/react-dom/index.js',
+#12 3.528     '/app/node_modules/react/cjs/react.production.min.js',
+#12 3.528     '/app/node_modules/react/cjs/react-jsx-runtime.production.min.js'
+#12 3.528   ]
+#12 3.528 }
+#12 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+------
+ > [8/8] RUN npm run build:
+3.528     '/app/node_modules/react/jsx-runtime.js',
+3.528     '/app/node_modules/react/index.js',
+3.528     '/app/node_modules/react-router/dist/development/dom-export.mjs',
+3.528     '/app/node_modules/react-dom/client.js',
+3.528     '/app/src/app/layout.jsx',
+3.528     '/app/node_modules/react-dom/index.js',
+3.528     '/app/node_modules/react/cjs/react.production.min.js',
+3.528     '/app/node_modules/react/cjs/react-jsx-runtime.production.min.js'
+3.528   ]
+3.528 }
+------
+==> Building image
+Waiting for depot builder...
+
+==> Building image with Depot
+--> build:  (​)
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 297B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:20-slim
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 110B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/8] FROM docker.io/library/node:20-slim@sha256:b12539c5bb7bca01d3eeac5b0ae1946962ffbafd93ba198b4f58034bc12304ce
+#4 resolve docker.io/library/node:20-slim@sha256:b12539c5bb7bca01d3eeac5b0ae1946962ffbafd93ba198b4f58034bc12304ce done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 31.67kB 0.0s done
+#5 DONE 0.0s
+
+#6 [3/8] RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [2/8] WORKDIR /app
+#7 CACHED
+
+#8 [4/8] COPY package*.json ./
+#8 CACHED
+
+#9 [5/8] COPY .npmrc ./
+#9 CACHED
+
+#10 [6/8] RUN npm install
+#10 CACHED
+
+#11 [7/8] COPY . .
+#11 DONE 0.1s
+
+#12 [8/8] RUN npm run build
+#12 0.245 
+#12 0.245 > build
+#12 0.245 > react-router build
+#12 0.245 
+#12 2.041 vite v6.4.1 building for production...
+#12 2.180 transforming...
+#12 3.218 [plugin vite:resolve] Module "crypto" has been externalized for browser compatibility, imported by "/app/src/app/api/auth/route.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.219 [plugin vite:resolve] Module "crypto" has been externalized for browser compatibility, imported by "/app/src/app/api/auth/route.js". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.221 ✓ 73 modules transformed.
+#12 3.298 [plugin vite:resolve] Module "node:assert" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.298 [plugin vite:resolve] Module "node:crypto" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.298 [plugin vite:resolve] Module "node:util" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.299 [plugin vite:resolve] Module "node:assert" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.300 [plugin vite:resolve] Module "node:crypto" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.300 [plugin vite:resolve] Module "node:util" has been externalized for browser compatibility, imported by "/app/node_modules/argon2/argon2.cjs". See https://vite.dev/guide/troubleshooting.html#module-externalized-for-browser-compatibility for more details.
+#12 3.719 ✗ Build failed in 1.64s
+#12 3.720 [commonjs--resolver] Server-only module referenced by client
+#12 3.720 
+#12 3.720     '/app/src/app/api/utils/db.server' imported by route 'src/app/api/auth/route.js'
+#12 3.720 
+#12 3.720   React Router automatically removes server-code from these exports:
+#12 3.720     `loader`, `action`, `middleware`, `headers`
+#12 3.720 
+#12 3.720   But other route exports in 'src/app/api/auth/route.js' depend on '/app/src/app/api/utils/db.server'.
+#12 3.720 
+#12 3.720   See https://reactrouter.com/explanation/code-splitting#removal-of-server-code
+#12 3.720 
+#12 3.720     at Object.resolveId (/app/node_modules/@react-router/dev/dist/vite.js:3832:17)
+#12 3.720     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.720     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.720     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.720     at Object.resolveId (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:2835:10)
+#12 3.720     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.720     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.720     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.720     at Object.viteAliasCustomResolver (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:42034:20)
+#12 3.720     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.720     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.720     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.720     at Object.resolveId (file:///app/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:2835:10)
+#12 3.720     at PluginDriver.hookFirstAndGetPlugin (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:22333:28)
+#12 3.720     at resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:20809:26)
+#12 3.720     at ModuleLoader.resolveId (file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21246:15)
+#12 3.720     at file:///app/node_modules/rollup/dist/es/shared/node-entry.js:21550:50 {
+#12 3.720   code: 'PLUGIN_ERROR',
+#12 3.720   plugin: 'commonjs--resolver',
+#12 3.720   hook: 'resolveId',
+#12 3.720   watchFiles: [
+#12 3.720     '/app/node_modules/@react-router/dev/dist/config/defaults/entry.client.tsx',
+#12 3.720     '/app/src/app/root.tsx',
+#12 3.720     '/app/src/app/page.jsx',
+#12 3.720     '/app/src/app/account/logout/page.jsx',
+#12 3.720     '/app/src/app/account/signin/page.jsx',
+#12 3.720     '/app/src/app/account/signup/page.jsx',
+#12 3.720     '/app/src/app/api/analytics/route.js',
+#12 3.720     '/app/src/app/api/applications/route.js',
+#12 3.720     '/app/src/app/api/auth/route.js',
+#12 3.720     '/app/src/app/api/auth/token/route.js',
+#12 3.720     '/app/src/app/api/auth/expo-web-success/route.js',
+#12 3.720     '/app/src/app/api/candidates/route.js',
+#12 3.720     '/app/src/app/api/candidates/[id]/route.js',
+#12 3.720     '/app/src/app/api/candidates/bulk-import/route.js',
+#12 3.720     '/app/src/app/api/browser/search/route.js',
+#12 3.720     '/app/src/app/api/candidates/parse-cv/route.js',
+#12 3.720     '/app/src/app/api/chatbot/route.js',
+#12 3.720     '/app/src/app/api/clients/[id]/route.js',
+#12 3.720     '/app/src/app/api/clients/route.js',
+#12 3.720     '/app/src/app/api/clients/[id]/contacts/route.js',
+#12 3.720     '/app/src/app/api/clients/[id]/interactions/route.js',
+#12 3.720     '/app/src/app/api/clients/[id]/payments/route.js',
+#12 3.720     '/app/src/app/api/clients/[id]/placements/route.js',
+#12 3.720     '/app/src/app/api/clients/placements/[placementId]/route.js',
+#12 3.720     '/app/src/app/api/email-templates/route.js',
+#12 3.720     '/app/src/app/api/email-templates/[id]/route.js',
+#12 3.720     '/app/src/app/api/interviews/route.js',
+#12 3.720     '/app/src/app/api/interviews/[id]/route.js',
+#12 3.720     '/app/src/app/api/interviews/analyze-candidate/route.js',
+#12 3.720     '/app/src/app/api/jobs/[id]/route.js',
+#12 3.720     '/app/src/app/api/login/route.js',
+#12 3.720     '/app/src/app/api/profile/change-password/route.js',
+#12 3.720     '/app/src/app/api/profile/update/route.js',
+#12 3.720     '/app/src/app/api/jobs/route.js',
+#12 3.720     '/app/src/app/api/revenue/route.js',
+#12 3.720     '/app/src/app/api/upload/route.js',
+#12 3.720     '/app/src/app/api/interviews/ai-suggestions/route.js',
+#12 3.720     '/app/src/app/jobs/page.jsx',
+#12 3.720     '/app/src/app/dashboard/page.jsx',
+#12 3.720     '/app/src/app/login/page.jsx',
+#12 3.720     '/app/src/app/jobs/[id]/page.jsx',
+#12 3.720     '/app/src/app/__create/not-found.tsx',
+#12 3.720     '/app/package.json',
+#12 3.720     '/app/node_modules/react/index.js',
+#12 3.720     '/app/node_modules/react/jsx-runtime.js',
+#12 3.720     '/app/node_modules/react-dom/client.js',
+#12 3.720     '/app/node_modules/react-router/dist/development/dom-export.mjs',
+#12 3.720     '/app/src/app/layout.jsx',
+#12 3.720     '/app/node_modules/react-dom/index.js',
+#12 3.720     '/app/node_modules/react/cjs/react.production.min.js',
+#12 3.720     '/app/node_modules/react/cjs/react-jsx-runtime.production.min.js'
+#12 3.720   ]
+#12 3.720 }
+#12 ERROR: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1
+------
+ > [8/8] RUN npm run build:
+3.720     '/app/node_modules/react/index.js',
+3.720     '/app/node_modules/react/jsx-runtime.js',
+3.720     '/app/node_modules/react-dom/client.js',
+3.720     '/app/node_modules/react-router/dist/development/dom-export.mjs',
+3.720     '/app/src/app/layout.jsx',
+3.720     '/app/node_modules/react-dom/index.js',
+3.720     '/app/node_modules/react/cjs/react.production.min.js',
+3.720     '/app/node_modules/react/cjs/react-jsx-runtime.production.min.js'
+3.720   ]
+3.720 }
+------
+Error: failed to fetch an image or build from source: error building: failed to solve: process "/bin/sh -c npm run build" did not complete successfully: exit code: 1

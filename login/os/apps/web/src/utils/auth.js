@@ -1,3 +1,9 @@
+/**
+ * DEPRECATED: This file contains a client-side mock database that is no longer used.
+ * Authentication is now handled via API calls in `clientAuth.js` which talks to `auth.server.js`.
+ * 
+ * Do not use this file for new code.
+ */
 import { randomUUID } from 'crypto';
 
 // Server-side database import - this will be handled differently for client vs server
@@ -66,7 +72,7 @@ async function init() {
     if (import.meta.env.SSR) {
         try {
             // Use vite-ignore to prevent build analysis issues
-            const dbModule = await import(/* @vite-ignore */ '@/app/api/utils/db.server');
+            const dbModule = await import(/* @vite-ignore */ '@/api/utils/db.server');
             db = dbModule.default;
         } catch (error) {
             console.error("Failed to load DB module:", error);

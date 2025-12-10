@@ -1,7 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { desktopApps, quickActions } from "@/utils/dashboardApps";
 import { DesktopIcon } from "@/components/Dashboard/DesktopIcon";
 import { Taskbar } from "@/components/Dashboard/Taskbar";
@@ -26,121 +26,7 @@ import { Chatbot } from "@/components/Dashboard/Chatbot";
 
 const queryClient = new QueryClient();
 
-// Animated Stars Background Component
-function Stars() {
-  const [stars, setStars] = useState([]);
-  const [shootingStars, setShootingStars] = useState([]);
-
-  useEffect(() => {
-    // Generate random stars with different behaviors
-    const generateStars = () => {
-      const starArray = [];
-      // Regular floating stars
-      for (let i = 0; i < 200; i++) {
-        starArray.push({
-          id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          size: Math.random() * 2.5 + 0.5,
-          duration: Math.random() * 3 + 2,
-          delay: Math.random() * 5,
-          opacity: Math.random() * 0.8 + 0.2,
-          moveX: Math.random() * 100 - 50,
-          moveY: Math.random() * 100 - 50,
-          twinkleDuration: Math.random() * 3 + 1,
-        });
-      }
-      setStars(starArray);
-    };
-
-    // Generate shooting stars periodically
-    const generateShootingStar = () => {
-      const newStar = {
-        id: Date.now(),
-        x: Math.random() * 100,
-        y: Math.random() * 30, // Top third of screen
-        angle: Math.random() * 30 + 30, // 30-60 degrees
-      };
-      setShootingStars((prev) => [...prev, newStar]);
-
-      // Remove shooting star after animation
-      setTimeout(() => {
-        setShootingStars((prev) => prev.filter((s) => s.id !== newStar.id));
-      }, 2000);
-    };
-
-    generateStars();
-
-    // Create shooting stars every 3-8 seconds
-    const shootingInterval = setInterval(
-      () => {
-        if (Math.random() > 0.3) {
-          generateShootingStar();
-        }
-      },
-      3000 + Math.random() * 5000,
-    );
-
-    return () => {
-      clearInterval(shootingInterval);
-    };
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Regular animated stars */}
-      {stars.map((star) => (
-        <div
-          key={star.id}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            opacity: star.opacity,
-            boxShadow: `0 0 ${star.size * 3}px rgba(255, 255, 255, 0.8), 0 0 ${star.size * 6}px rgba(255, 255, 255, 0.4)`,
-            animation: `floatStar ${star.duration}s ease-in-out infinite, twinkle ${star.twinkleDuration}s ease-in-out infinite`,
-            animationDelay: `${star.delay}s`,
-            "--move-x": `${star.moveX}px`,
-            "--move-y": `${star.moveY}px`,
-          }}
-        />
-      ))}
-
-      {/* Shooting stars */}
-      {shootingStars.map((star) => (
-        <div
-          key={star.id}
-          className="absolute"
-          style={{
-            left: `${star.x}%`,
-            top: `${star.y}%`,
-            width: "3px",
-            height: "3px",
-            background: "white",
-            borderRadius: "50%",
-            boxShadow: `0 0 10px 2px rgba(255, 255, 255, 0.8), 0 0 20px 4px rgba(255, 255, 255, 0.4)`,
-            animation: "shootingStar 2s ease-out forwards",
-            "--angle": `${star.angle}deg`,
-          }}
-        >
-          <div
-            className="absolute w-full h-full"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))",
-              width: "100px",
-              height: "2px",
-              transform: `rotate(${star.angle}deg)`,
-              transformOrigin: "left center",
-            }}
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
+import { Starfield } from "@/components/Dashboard/Starfield";
 
 function DashboardContent() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -306,7 +192,7 @@ function DashboardContent() {
   return (
     <div className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-black via-slate-950 to-black">
       {/* Animated Stars Background */}
-      <Stars />
+      <Starfield />
 
       {/* User info and logout button */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">

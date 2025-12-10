@@ -1,5 +1,5 @@
 import { readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
 	type RouteConfigEntry,
@@ -17,6 +17,7 @@ type Tree = {
 	isParam: boolean;
 	paramName: string;
 	isCatchAll: boolean;
+	fullPath: string;
 };
 
 function buildRouteTree(dir: string, basePath = ''): Tree {
@@ -28,6 +29,7 @@ function buildRouteTree(dir: string, basePath = ''): Tree {
 		isParam: false,
 		isCatchAll: false,
 		paramName: '',
+		fullPath: dir,
 	};
 
 	// Check if the current directory name indicates a parameter
@@ -65,9 +67,15 @@ function buildRouteTree(dir: string, basePath = ''): Tree {
 function generateRoutes(node: Tree): RouteConfigEntry[] {
 	const routes: RouteConfigEntry[] = [];
 
-	if (node.hasPage) {
-		const componentPath =
-			node.path === '' ? `./${node.path}${node.componentFile}` : `./${node.path}/${node.componentFile}`;
+	if (node.hasPage && node.componentFile) {
+		const fullFilePath = join(node.fullPath, node.componentFile);
+		// Calculate relative path from src/app (__dirname) to the component file
+		// Windows paths might use backslashes, replace them for import specifiers
+		let relPath = relative(__dirname, fullFilePath).replaceAll('\\', '/');
+		if (!relPath.startsWith('.')) {
+			relPath = `./${relPath}`;
+		}
+		const componentPath = relPath;
 
 		if (node.path === '') {
 			routes.push(index(componentPath));
@@ -104,10 +112,22 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 		routes.push(...generateRoutes(child));
 	}
 
-	return routes;
+	// Filter duplicates: keep last one
+	const uniqueRoutes = new Map();
+	routes.forEach(r => {
+		// Assume 'path' or 'index' is the key
+		const key = r.path || (r.index ? 'index' : '');
+		uniqueRoutes.set(key, r);
+	});
+	return Array.from(uniqueRoutes.values());
 }
+// Ensure these globs are included for the build to pick up dependencies if needed, 
+// though manual import generation below should handle route registration.
+// Vite's build process might need these to know about the existence of the files if they are dynamic imports.
+import.meta.glob('./**/{page.jsx,route.js,route.ts}', { eager: true });
+import.meta.glob('../api/**/{page.jsx,route.js,route.ts}', { eager: true });
+
 if (import.meta.env.DEV) {
-	import.meta.glob('./**/{page.jsx,route.js,route.ts}', {});
 	if (import.meta.hot) {
 		import.meta.hot.accept((newSelf) => {
 			import.meta.hot?.invalidate();
@@ -115,7 +135,13 @@ if (import.meta.env.DEV) {
 	}
 }
 const tree = buildRouteTree(__dirname);
+const apiTree = buildRouteTree(resolve(__dirname, '../api'), 'api');
+
 const notFound = route('*?', './__create/not-found.tsx');
-const routes = [...generateRoutes(tree), notFound];
+const routes = [
+	...generateRoutes(tree),
+	...generateRoutes(apiTree),
+	notFound
+];
 
 export default routes;

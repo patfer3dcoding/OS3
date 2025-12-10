@@ -251,7 +251,16 @@ app.use('/api/auth/*', async (c, next) => {
 });
 app.route(API_BASENAME, api);
 
-export default await createHonoServer({
-  app,
-  defaultLogger: false,
-});
+export { app };
+
+let server;
+// Conditional server start - skip if building/running for Netlify Functions
+// We check for NETLIFY or standard build vars if needed, but explicit env is safest.
+if (!process.env.NETLIFY) {
+  server = await createHonoServer({
+    app,
+    defaultLogger: false,
+  });
+}
+
+export default server;

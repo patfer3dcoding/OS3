@@ -1,37 +1,37 @@
 import { useCallback } from 'react';
-import { signIn, signOut } from "@auth/create/react";
+import { authenticateUser, clearAuthData, storeAuthData } from '@/utils/clientAuth';
 
 function useAuth() {
-  const callbackUrl = typeof window !== 'undefined' 
-    ? new URLSearchParams(window.location.search).get('callbackUrl')
-    : null;
+  const signInWithCredentials = useCallback(async (options) => {
+    const { email, password, callbackUrl, redirect } = options;
 
-  const signInWithCredentials = useCallback((options) => {
-    return signIn("credentials-signin", {
-      ...options,
-      callbackUrl: callbackUrl ?? options.callbackUrl
-    });
-  }, [callbackUrl])
+    const result = await authenticateUser(email, password);
 
-  const signUpWithCredentials = useCallback((options) => {
-    return signIn("credentials-signup", {
-      ...options,
-      callbackUrl: callbackUrl ?? options.callbackUrl
-    });
-  }, [callbackUrl])
+    if (result.success) {
+      // Store token
+      storeAuthData(result.user, result.token);
 
-  const signInWithGoogle = useCallback((options) => {
-    return signIn("google", {
-      ...options,
-      callbackUrl: callbackUrl ?? options.callbackUrl
-    });
-  }, [callbackUrl]);
-  const signInWithFacebook = useCallback((options) => {
-    return signIn("facebook", options);
+      if (redirect && callbackUrl && typeof window !== 'undefined') {
+        window.location.href = callbackUrl;
+      }
+      return result;
+    } else {
+      throw new Error(result.error || 'Authentication failed');
+    }
   }, []);
-  const signInWithTwitter = useCallback((options) => {
-    return signIn("twitter", options);
+
+  const signOut = useCallback(() => {
+    clearAuthData();
+    if (typeof window !== 'undefined') {
+      window.location.href = '/';
+    }
   }, []);
+
+  // Mock other providers for now
+  const signInWithGoogle = useCallback(() => console.log("Google login not implemented"), []);
+  const signInWithFacebook = useCallback(() => console.log("Facebook login not implemented"), []);
+  const signInWithTwitter = useCallback(() => console.log("Twitter login not implemented"), []);
+  const signUpWithCredentials = useCallback(() => console.log("Sign up not implemented"), []);
 
   return {
     signInWithCredentials,
