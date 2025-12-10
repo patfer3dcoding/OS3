@@ -1,4 +1,4 @@
-import { authenticateUser } from '@/api/utils/auth.server';
+import { authenticateUser } from '../../utils/auth.server';
 
 export async function action({ request }) {
     if (request.method !== 'POST') {

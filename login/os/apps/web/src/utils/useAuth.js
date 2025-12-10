@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { authenticateUser, clearAuthData, storeAuthData } from '@/utils/clientAuth';
+import { authenticateUser, clearAuthData, storeAuthData } from './clientAuth';
 
 function useAuth() {
   const signInWithCredentials = useCallback(async (options) => {

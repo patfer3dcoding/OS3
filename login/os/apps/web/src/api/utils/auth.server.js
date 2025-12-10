@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import db from '@/api/utils/db.server';
+import db from './db.server';
 
 // User roles
 export const USER_ROLES = {

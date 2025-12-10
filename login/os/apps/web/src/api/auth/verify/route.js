@@ -1,4 +1,4 @@
-import { verifyAuthToken } from '@/api/utils/auth.server';
+import { verifyAuthToken } from '../../utils/auth.server';
 
 export async function loader({ request }) {
     try {
