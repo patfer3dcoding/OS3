@@ -1,7 +1,7 @@
 import { verifyAuthToken, getUserById } from "../../utils/auth.server";
 import db from "../../utils/db.server";
 
-export async function POST(request) {
+export async function action({ request }) {
   if (request.method !== "POST") {
     return new Response("Method Not Allowed", { status: 405 });
   }
