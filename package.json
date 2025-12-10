@@ -1,0 +1,12 @@
+{
+    "name": "login-root",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": "22.x"
+    },
+    "scripts": {
+        "heroku-postbuild": "cd login/os/apps/web && npm install && npm run build",
+        "start": "cd login/os/apps/web && npm start"
+    }
+}
