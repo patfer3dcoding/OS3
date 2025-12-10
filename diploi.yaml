@@ -1,13 +1,9 @@
 version: '1'
 components:
   - name: web
-    source: os/apps/web
-    type: nodejs
+    source: ./os/apps/web
+    type: docker
+    dockerfile: Dockerfile
     env:
       NODE_ENV: production
-    build:
-      - npm install
-      - npm run build
-    start:
-      - npm start
     port: 8080
