@@ -130,8 +130,8 @@ function generateRoutes(node: Tree): RouteConfigEntry[] {
 }
 
 // Ensure these globs are included for the build to pick up dependencies if needed
-import.meta.glob('./**/{page.jsx,route.js,route.ts}', { eager: true });
-import.meta.glob('../api/**/{page.jsx,route.js,route.ts}', { eager: true });
+import.meta.glob('./**/{page.jsx,route.js,route.ts}');
+import.meta.glob('../api/**/{page.jsx,route.js,route.ts}');
 
 if (import.meta.env.DEV) {
 	if (import.meta.hot) {
