@@ -6,7 +6,7 @@
         "node": "22.x"
     },
     "scripts": {
-        "heroku-postbuild": "cd login/os/apps/web && npm install && npm run build",
+        "heroku-postbuild": "cd login/os/apps/web && npm install --include=dev && npm run build",
         "start": "cd login/os/apps/web && npm start"
     }
 }
