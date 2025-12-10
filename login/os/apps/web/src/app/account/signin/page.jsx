@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import useAuth from "@/utils/useAuth";
+import useAuth from "../../../utils/useAuth";
 import { Mail, Lock } from "lucide-react";
 
 export default function SignInPage() {

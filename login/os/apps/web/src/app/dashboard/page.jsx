@@ -2,31 +2,31 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, useEffect, Suspense, lazy } from "react";
-import { desktopApps, quickActions } from "@/utils/dashboardApps";
-import { DesktopIcon } from "@/components/Dashboard/DesktopIcon";
-import { Taskbar } from "@/components/Dashboard/Taskbar";
-import { StartMenu } from "@/components/Dashboard/StartMenu";
-import { Window } from "@/components/Dashboard/Window";
-import { DefaultWindowContent } from "@/components/Dashboard/DefaultWindowContent";
-import { CandidatesWindow } from "@/components/Dashboard/CandidatesWindow/CandidatesWindow";
-import { JobsWindow } from "@/components/Dashboard/JobsWindow/JobsWindow";
-import { AnalyticsWindow } from "@/components/Dashboard/AnalyticsWindow/AnalyticsWindow";
-import { InterviewsWindow } from "@/components/Dashboard/InterviewsWindow/InterviewsWindow";
-import { InterviewRoom } from "@/components/Dashboard/InterviewRoom/InterviewRoom";
-import { MessagesWindow } from "@/components/Dashboard/MessagesWindow/MessagesWindow";
-import { PipelineWindow } from "@/components/Dashboard/PipelineWindow/PipelineWindow";
-import { ReportsWindow } from "@/components/Dashboard/ReportsWindow/ReportsWindow";
-import { SettingsWindow } from "@/components/Dashboard/SettingsWindow/SettingsWindow";
-import { ClientsWindow } from "@/components/Dashboard/ClientsWindow/ClientsWindow";
-import { PerformanceWindow } from "@/components/Dashboard/PerformanceWindow/PerformanceWindow";
-import { RevenueWindow } from "@/components/Dashboard/RevenueWindow/RevenueWindow";
-import { EmailWindow } from "@/components/Dashboard/EmailWindow/EmailWindow";
+import { desktopApps, quickActions } from "../../utils/dashboardApps";
+import { DesktopIcon } from "../../components/Dashboard/DesktopIcon";
+import { Taskbar } from "../../components/Dashboard/Taskbar";
+import { StartMenu } from "../../components/Dashboard/StartMenu";
+import { Window } from "../../components/Dashboard/Window";
+import { DefaultWindowContent } from "../../components/Dashboard/DefaultWindowContent";
+import { CandidatesWindow } from "../../components/Dashboard/CandidatesWindow/CandidatesWindow";
+import { JobsWindow } from "../../components/Dashboard/JobsWindow/JobsWindow";
+import { AnalyticsWindow } from "../../components/Dashboard/AnalyticsWindow/AnalyticsWindow";
+import { InterviewsWindow } from "../../components/Dashboard/InterviewsWindow/InterviewsWindow";
+import { InterviewRoom } from "../../components/Dashboard/InterviewRoom/InterviewRoom";
+import { MessagesWindow } from "../../components/Dashboard/MessagesWindow/MessagesWindow";
+import { PipelineWindow } from "../../components/Dashboard/PipelineWindow/PipelineWindow";
+import { ReportsWindow } from "../../components/Dashboard/ReportsWindow/ReportsWindow";
+import { SettingsWindow } from "../../components/Dashboard/SettingsWindow/SettingsWindow";
+import { ClientsWindow } from "../../components/Dashboard/ClientsWindow/ClientsWindow";
+import { PerformanceWindow } from "../../components/Dashboard/PerformanceWindow/PerformanceWindow";
+import { RevenueWindow } from "../../components/Dashboard/RevenueWindow/RevenueWindow";
+import { EmailWindow } from "../../components/Dashboard/EmailWindow/EmailWindow";
 import { LogOut } from "lucide-react";
-import { Chatbot } from "@/components/Dashboard/Chatbot";
+import { Chatbot } from "../../components/Dashboard/Chatbot";
 
 const queryClient = new QueryClient();
 
-import { Starfield } from "@/components/Dashboard/Starfield";
+import { Starfield } from "../../components/Dashboard/Starfield";
 
 function DashboardContent() {
   const [currentTime, setCurrentTime] = useState(new Date());

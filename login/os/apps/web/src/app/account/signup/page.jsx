@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuth from "@/utils/useAuth";
+import useAuth from "../../../utils/useAuth";
 
 function MainComponent() {
   const [error, setError] = useState(null);
@@ -115,9 +115,8 @@ function MainComponent() {
           <p className="text-center text-sm text-gray-600">
             Already have an account?{" "}
             <a
-              href={`/account/signin${
-                typeof window !== "undefined" ? window.location.search : ""
-              }`}
+              href={`/account/signin${typeof window !== "undefined" ? window.location.search : ""
+                }`}
               className="text-[#357AFF] hover:text-[#2E69DE]"
             >
               Sign in

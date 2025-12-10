@@ -20,7 +20,7 @@ import {
   FileText,
   Loader2,
 } from "lucide-react";
-import useUpload from "@/utils/useUpload";
+import useUpload from "../../../utils/useUpload";
 
 export default function JobDetailPage({ params }) {
   const [job, setJob] = useState(null);

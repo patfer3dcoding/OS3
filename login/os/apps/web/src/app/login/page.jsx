@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import useAuth from "@/utils/useAuth";
+import useAuth from "../../utils/useAuth";
 import { Mail, Lock, Volume2, VolumeX } from "lucide-react";
 
 export default function LoginPage() {
